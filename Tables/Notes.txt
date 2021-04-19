@@ -1,0 +1,25 @@
+*** Create Table ***
+
+CREATE TABLE cats (
+    name VARCHAR (100),
+    age INT
+    );
+
+*** Show Columns ***
+
+SHOW COLUMNS FROM cats;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| name  | varchar(100) | YES  |     | NULL    |       |
+| age   | int(11)      | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+
+*** Insert Data ***
+
+INSERT INTO cats
+    (name,
+    age)
+VALUES
+    ('Blue',
+    1);
