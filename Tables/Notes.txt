@@ -23,3 +23,24 @@ INSERT INTO cats
 VALUES
     ('Blue',
     1);
+	
+*** Briefly on SELECT ***
+
+SELECT * FROM cats;
++-------+------+
+| name  | age  |
++-------+------+
+| Blue  |    1 |
+| Draco |   11 |
++-------+------+
+
+*** Bulk INSERT ***
+
+INSERT INTO cats 
+	(name, 
+	age)
+VALUES 
+	("Charlie", 10),
+    ("Sadie", 3),
+    ("Lazy Bear", 1);
+	
