@@ -1,0 +1,54 @@
+*** Create a People Table ***
+
+1) CREATE TABLE people
+    (
+    first_name VARCHAR(20),
+    last_name VARCHAR(20),
+    age INT
+    );
+	
+2) DESC people;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| first_name | varchar(20) | YES  |     | NULL    |       |
+| last_name  | varchar(20) | YES  |     | NULL    |       |
+| age        | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+3) INSERT INTO people (first_name, last_name, age)
+    -> VALUES ("Tina", "Belcher", 13);
+
+4) SELECT * FROM people;
++------------+-----------+------+
+| first_name | last_name | age  |
++------------+-----------+------+
+| Tina       | Belcher   |   13 |
++------------+-----------+------+
+
+5) INSERT INTO people (last_name, first_name, age)
+    -> VALUES ("Belcher", "Bob", 42);
+
+6) SELECT * FROM people;
++------------+-----------+------+
+| first_name | last_name | age  |
++------------+-----------+------+
+| Tina       | Belcher   |   13 |
+| Bob        | Belcher   |   42 |
++------------+-----------+------+
+
+7) INSERT INTO people (first_name, last_name, age)
+    VALUES ("Linda", "Belcher", 45),
+    ("Phillip", "Frond", 38),
+    ("Calvin", "Fischoeder", 70);
+	
+8) SELECT * FROM people;
++------------+------------+------+
+| first_name | last_name  | age  |
++------------+------------+------+
+| Tina       | Belcher    |   13 |
+| Bob        | Belcher    |   42 |
+| Linda      | Belcher    |   45 |
+| Phillip    | Frond      |   38 |
+| Calvin     | Fischoeder |   70 |
++------------+------------+------+
