@@ -52,3 +52,24 @@
 | Phillip    | Frond      |   38 |
 | Calvin     | Fischoeder |   70 |
 +------------+------------+------+
+
+*** Define an Employees Table ***
+
+1) CREATE TABLE employees (
+    id INT NOT NULL AUTO_INCREMENT,
+    last_name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    middle_name VARCHAR(50),
+    age INT NOT NULL,
+    current_status VARCHAR(50) NOT NULL DEFAULT 'employed',
+	PRIMARY KEY (id)
+    );
+	
+2) INSERT INTO employees (last_name, first_name, age, current_status) VALUES ('Fisher', 'Sam', 30, 'terminated');
+
+3) SELECT * FROM employees;
++----+-----------+------------+-------------+-----+----------------+
+| id | last_name | first_name | middle_name | age | current_status |
++----+-----------+------------+-------------+-----+----------------+
+|  1 | Fisher    | Sam        |     NULL    |  30 | terminated     |
++----+-----------+------------+-------------+-----+----------------+
