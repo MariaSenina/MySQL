@@ -145,3 +145,49 @@ DESC cats4;
 | name  | varchar(20)  | NO   |     | Unnamed |       |
 | age   | int(11)      | NO   |     | 99      |       |
 +-------+--------------+------+-----+---------+-------+
+
+*** Primer to Primary Keys ***
+
+1.1) CREATE TABLE unique_cats 
+	(
+    cat_id INT NOT NULL,
+    name VARCHAR (100),
+    age INT,
+    PRIMARY KEY (cat_id)
+    );
+	
+1.2) DESC unique_cats;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| cat_id | int(11)      | NO   | PRI | NULL    |       |
+| name   | varchar(100) | YES  |     | NULL    |       |
+| age    | int(11)      | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+
+2.1) CREATE TABLE unique_cats2 
+	(
+    cat_id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR (100),
+    age INT,
+    PRIMARY KEY (cat_id)
+    );
+	
+2.2) DESC unique_cats2;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| cat_id | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(100) | YES  |     | NULL    |                |
+| age    | int(11)      | YES  |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+
+2.3) INSERT INTO unique_cats2 (name, age) 
+	VALUES ('Skippy', 4);
+
+2.4) SELECT * FROM unique_cats2;
++--------+--------+------+
+| cat_id | name   | age  |
++--------+--------+------+
+|      1 | Skippy |    4 |
++--------+--------+------+
