@@ -96,3 +96,52 @@ Query OK, 1 row affected, 1 warning (0.01 sec)
 | Lazy Bear                                                                                            |    1 |
 | Lima                                                                                                 |    0 |
 +------------------------------------------------------------------------------------------------------+------+
+
+*** NULL and NOT NULL ***
+
+ CREATE TABLE cats2 
+ 	(
+    name VARCHAR(100) NOT NULL,
+    age INT NOT NULL
+	);
+	
+DESC cats2;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| name  | varchar(100) | NO   |     | NULL    |       |
+| age   | int(11)      | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+
+
+*** Setting Default Values ***
+
+ CREATE TABLE cats3 
+ 	(
+    name VARCHAR(100) DEFAULT 'Unnamed',
+    age INT DEFAULT 99
+    );
+
+DESC cats3;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| name  | varchar(100) | YES  |     | Unnamed |       |
+| age   | int(11)      | YES  |     | 99      |       |
++-------+--------------+------+-----+---------+-------+
+
+*** Combining NOT NULL and DEFAULT ***
+
+CREATE TABLE cats4
+  (
+    name VARCHAR(20) NOT NULL DEFAULT 'unnamed',
+    age INT NOT NULL DEFAULT 99
+  );
+ 
+DESC cats4;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| name  | varchar(20)  | NO   |     | Unnamed |       |
+| age   | int(11)      | NO   |     | 99      |       |
++-------+--------------+------+-----+---------+-------+
