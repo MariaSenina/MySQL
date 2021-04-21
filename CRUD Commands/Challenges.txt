@@ -1,0 +1,274 @@
+*** Spring Cleaning Challenge ***
+
+1) Create a new database "shirts_db"
+
+1.1) CREATE DATABASE shirts_db;
+
+1.2) SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| cats_app           |
+| employees_log_db   |
+| mysql              |
+| performance_schema |
+| shirts_db          |
+| sys                |
++--------------------+
+
+1.3) USE shirts_db;
+
+2) Create a new table "shirts": shirt_id (INT, NOT NULL, PRIMARY KEY), article (VARCHAR), colour (VARCHAR), shirt_size (VARCHAR(5)), last_worn (INT)
+
+2.1) CREATE TABLE shirts (
+    shirt_id INT NOT NULL AUTO_INCREMENT,
+    article VARCHAR (20),
+    colour VARCHAR(20),
+    shirt_size VARCHAR(5),
+    last_worn INT,
+    PRIMARY KEY (shirt_id)
+    );
+
+2.2) DESC shirts;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| shirt_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| article    | varchar(20) | YES  |     | NULL    |                |
+| colour     | varchar(20) | YES  |     | NULL    |                |
+| shirt_size | varchar(5)  | YES  |     | NULL    |                |
+| last_worn  | int(11)     | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+
+3) Add provided data in a multi insert
+
+3.1) INSERT INTO shirts (article, colour, shirt_size, last_worn)
+     VALUES ('t-shirt', 'white', 'S', 10),
+     ('t-shirt', 'green', 'S', 200),
+     ('polo shirt', 'black', 'M', 10),
+     ('tank top', 'blue', 'S', 50),
+     ('t-shirt', 'pink', 'S', 0),
+     ('polo shirt', 'red', 'M', 5),
+     ('tank top', 'white', 'S', 200),
+     ('tank top', 'blue', 'M', 15);
+
+3.2) SELECT * FROM shirts;
++----------+------------+--------+------------+-----------+
+| shirt_id | article    | colour | shirt_size | last_worn |
++----------+------------+--------+------------+-----------+
+|        1 | t-shirt    | white  | S          |        10 |
+|        2 | t-shirt    | green  | S          |       200 |
+|        3 | polo shirt | black  | M          |        10 |
+|        4 | tank top   | blue   | S          |        50 |
+|        5 | t-shirt    | pink   | S          |         0 |
+|        6 | polo shirt | red    | M          |         5 |
+|        7 | tank top   | white  | S          |       200 |
+|        8 | tank top   | blue   | M          |        15 |
++----------+------------+--------+------------+-----------+
+
+4) Add new entry: Purple Polo shirt, size M, last worn 50 days ago
+
+4.1) INSERT INTO shirts (colour, article, shirt_size, last_worn)
+     VALUES ('purple', 'polo shirt', 'M', 50);
+
+4.2) SELECT * FROM shirts WHERE shirt_id=8 OR shirt_id=9;
++----------+------------+--------+------------+-----------+
+| shirt_id | article    | colour | shirt_size | last_worn |
++----------+------------+--------+------------+-----------+
+|        8 | tank top   | blue   | M          |        15 |
+|        9 | polo shirt | purple | M          |        50 |
++----------+------------+--------+------------+-----------+
+
+5) SELECT all shirts, but only print out article and colour
+
+SELECT article, colour FROM shirts;
++------------+--------+
+| article    | colour |
++------------+--------+
+| t-shirt    | white  |
+| t-shirt    | green  |
+| polo shirt | black  |
+| tank top   | blue   |
+| t-shirt    | pink   |
+| polo shirt | red    |
+| tank top   | white  |
+| tank top   | blue   |
+| polo shirt | purple |
++------------+--------+
+
+6) SELECT all medium shirts, print out everything but the shirt_id
+
+SELECT article, colour, shirt_size, last_worn FROM shirts WHERE shirt_size='M';
++------------+--------+------------+-----------+
+| article    | colour | shirt_size | last_worn |
++------------+--------+------------+-----------+
+| polo shirt | black  | M          |        10 |
+| polo shirt | red    | M          |         5 |
+| tank top   | blue   | M          |        15 |
+| polo shirt | purple | M          |        50 |
++------------+--------+------------+-----------+
+
+7) UPDATE all Polo shirts to be size L
+
+7.1) SELECT * FROM shirts WHERE article='polo shirt';
++----------+------------+--------+------------+-----------+
+| shirt_id | article    | colour | shirt_size | last_worn |
++----------+------------+--------+------------+-----------+
+|        3 | polo shirt | black  | M          |        10 |
+|        6 | polo shirt | red    | M          |         5 |
+|        9 | polo shirt | purple | M          |        50 |
++----------+------------+--------+------------+-----------+
+
+7.2) UPDATE shirts SET shirt_size='L' WHERE article='polo shirt';
+
+7.3) SELECT * FROM shirts WHERE article='polo shirt';
++----------+------------+--------+------------+-----------+
+| shirt_id | article    | colour | shirt_size | last_worn |
++----------+------------+--------+------------+-----------+
+|        3 | polo shirt | black  | L          |        10 |
+|        6 | polo shirt | red    | L          |         5 |
+|        9 | polo shirt | purple | L          |        50 |
++----------+------------+--------+------------+-----------+
+
+8) UPDATE the shirt that was last worn 15 days ago to "worn 0 days ago"
+
+8.1) SELECT * FROM shirts WHERE last_worn=15;
++----------+----------+--------+------------+-----------+
+| shirt_id | article  | colour | shirt_size | last_worn |
++----------+----------+--------+------------+-----------+
+|        8 | tank top | blue   | M          |        15 |
++----------+----------+--------+------------+-----------+
+
+8.2) UPDATE shirts SET last_worn=0 WHERE last_worn=15;
+
+8.3) SELECT * FROM shirts WHERE last_worn=15;
+Empty set (0.00 sec)
+
+8.3.1) SELECT * FROM shirts WHERE shirt_id=8;
++----------+----------+--------+------------+-----------+
+| shirt_id | article  | colour | shirt_size | last_worn |
++----------+----------+--------+------------+-----------+
+|        8 | tank top | blue   | M          |         0 |
++----------+----------+--------+------------+-----------+
+
+9) UPDATE all white shirts to XS and their colour to off white
+
+9.1) SELECT * FROM shirts WHERE colour='white';
++----------+----------+--------+------------+-----------+
+| shirt_id | article  | colour | shirt_size | last_worn |
++----------+----------+--------+------------+-----------+
+|        1 | t-shirt  | white  | S          |        10 |
+|        7 | tank top | white  | S          |       200 |
++----------+----------+--------+------------+-----------+
+
+9.2) UPDATE shirts SET colour='off white', shirt_size='XS' WHERE colour='white';
+
+9.3) SELECT * FROM shirts WHERE shirt_id=1 OR shirt_id=7;
++----------+----------+-----------+-------------+-----------+
+| shirt_id | article  | colour    | shirt_size  | last_worn |
++----------+----------+-----------+-------------+-----------+
+|        1 | t-shirt  | off white | XS          |        10 |
+|        7 | tank top | off white | XS          |       200 |
++----------+----------+-----------+-------------+-----------+
+
+10) DELETE all old shirts (worn 200 days ago)
+
+10.1) SELECT * FROM shirts WHERE last_worn=200;
++----------+----------+-----------+------------+-----------+
+| shirt_id | article  | colour    | shirt_size | last_worn |
++----------+----------+-----------+------------+-----------+
+|        2 | t-shirt  | green     | S          |       200 |
+|        7 | tank top | off white | X          |       200 |
++----------+----------+-----------+------------+-----------+
+
+10.2) DELETE FROM shirts WHERE last_worn=200;
+
+10.3) SELECT * FROM shirts WHERE last_worn=200;
+Empty set (0.00 sec)
+
+10.3.1) SELECT * FROM shirts;
++----------+------------+-----------+------------+-----------+
+| shirt_id | article    | colour    | shirt_size | last_worn |
++----------+------------+-----------+------------+-----------+
+|        1 | t-shirt    | off white | X          |        10 |
+|        3 | polo shirt | black     | L          |        10 |
+|        4 | tank top   | blue      | S          |        50 |
+|        5 | t-shirt    | pink      | S          |         0 |
+|        6 | polo shirt | red       | L          |         5 |
+|        8 | tank top   | blue      | M          |         0 |
+|        9 | polo shirt | purple    | L          |        50 |
++----------+------------+-----------+------------+-----------+
+
+11) DELETE all tank tops
+
+11.1) SELECT * FROM shirts WHERE article='tank top';
++----------+----------+--------+------------+-----------+
+| shirt_id | article  | colour | shirt_size | last_worn |
++----------+----------+--------+------------+-----------+
+|        4 | tank top | blue   | S          |        50 |
+|        8 | tank top | blue   | M          |         0 |
++----------+----------+--------+------------+-----------+
+
+11.2) DELETE FROM shirts WHERE article='tank top';
+
+11.3) SELECT * FROM shirts WHERE article='tank top';
+Empty set (0.00 sec)
+
+11.3.1) SELECT * FROM shirts;
++----------+------------+-----------+------------+-----------+
+| shirt_id | article    | colour    | shirt_size | last_worn |
++----------+------------+-----------+------------+-----------+
+|        1 | t-shirt    | off white | X          |        10 |
+|        3 | polo shirt | black     | L          |        10 |
+|        5 | t-shirt    | pink      | S          |         0 |
+|        6 | polo shirt | red       | L          |         5 |
+|        9 | polo shirt | purple    | L          |        50 |
++----------+------------+-----------+------------+-----------+
+
+12) DELETE all shirts
+
+12.1) SELECT * FROM shirts;
++----------+------------+-----------+------------+-----------+
+| shirt_id | article    | colour    | shirt_size | last_worn |
++----------+------------+-----------+------------+-----------+
+|        1 | t-shirt    | off white | X          |        10 |
+|        3 | polo shirt | black     | L          |        10 |
+|        5 | t-shirt    | pink      | S          |         0 |
+|        6 | polo shirt | red       | L          |         5 |
+|        9 | polo shirt | purple    | L          |        50 |
++----------+------------+-----------+------------+-----------+
+
+12.2) DELETE FROM shirts;
+
+12.3) SELECT * FROM shirts;
+Empty set (0.00 sec)
+
+12.3.1) DESC shirts;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| shirt_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| article    | varchar(20) | YES  |     | NULL    |                |
+| colour     | varchar(20) | YES  |     | NULL    |                |
+| shirt_size | varchar(5)  | YES  |     | NULL    |                |
+| last_worn  | int(11)     | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+
+13) DROP the entire "shirts" table
+
+13.1) DESC shirts;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| shirt_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| article    | varchar(20) | YES  |     | NULL    |                |
+| colour     | varchar(20) | YES  |     | NULL    |                |
+| shirt_size | varchar(1)  | YES  |     | NULL    |                |
+| last_worn  | int(11)     | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+
+13.2) DROP TABLE shirts;
+
+13.3) DESC shirts;
+ERROR 1146 (42S02): Table 'shirts_db.shirts' doesn't exist
