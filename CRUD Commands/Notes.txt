@@ -1,0 +1,86 @@
+*** Official Intro to SELECT ***
+
+1) SELECT * FROM cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      1 | Ringo          | Tabby      |    4 |
+|      2 | Cindy          | Maine Coon |   10 |
+|      3 | Dumbledore     | Maine Coon |   11 |
+|      4 | Egg            | Persian    |    4 |
+|      5 | Misty          | Tabby      |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | Jackson        | Sphynx     |    7 |
++--------+----------------+------------+------+
+
+2) SELECT name FROM cats;
++----------------+
+| name           |
++----------------+
+| Ringo          |
+| Cindy          |
+| Dumbledore     |
+| Egg            |
+| Misty          |
+| George Michael |
+| Jackson        |
++----------------+
+
+2.1) SELECT age FROM cats;
++------+
+| age  |
++------+
+|    4 |
+|   10 |
+|   11 |
+|    4 |
+|   13 |
+|    9 |
+|    7 |
++------+
+
+3) SELECT name, age FROM cats;
++----------------+------+
+| name           | age  |
++----------------+------+
+| Ringo          |    4 |
+| Cindy          |   10 |
+| Dumbledore     |   11 |
+| Egg            |    4 |
+| Misty          |   13 |
+| George Michael |    9 |
+| Jackson        |    7 |
++----------------+------+
+
+*** Introduction to WHERE ***
+
+1) SELECT * FROM cats WHERE age=4;
++--------+-------+---------+------+
+| cat_id | name  | breed   | age  |
++--------+-------+---------+------+
+|      1 | Ringo | Tabby   |    4 |
+|      4 | Egg   | Persian |    4 |
++--------+-------+---------+------+
+
+1.2) SELECT cat_id, age FROM cats WHERE cat_id=age;
++--------+------+
+| cat_id | age  |
++--------+------+
+|      4 |    4 |
+|      7 |    7 |
++--------+------+
+
+*** Introduction to Aliases ***
+
+1) SELECT cat_id AS id, breed AS 'kitty breed' FROM cats;
++----+-------------+
+| id | kitty breed |
++----+-------------+
+|  1 | Tabby       |
+|  2 | Maine Coon  |
+|  3 | Maine Coon  |
+|  4 | Persian     |
+|  5 | Tabby       |
+|  6 | Ragdoll     |
+|  7 | Sphynx      |
++----+-------------+
