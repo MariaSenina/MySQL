@@ -58,3 +58,69 @@
 | Dave    | Eggers         | Dave-Eggers          |
 | ...     | ...            | ...                  |
 +---------+----------------+----------------------+
+
+*** Introducing SUBSTRING ***
+
+1) SELECT SUBSTRING('Hello World', 1, 4);
++--------------------------------+
+| SUBSTRING('Hello World', 1, 4) |
++--------------------------------+
+| Hell                           |
++--------------------------------+
+
+2) SELECT SUBSTRING('Hello World', 7);
++-----------------------------+
+| SUBSTRING('Hello World', 7) |
++-----------------------------+
+| World                       |
++-----------------------------+
+
+3) SELECT SUBSTRING('Hello World', -3);
++------------------------------+
+| SUBSTRING('Hello World', -3) |
++------------------------------+
+| rld                          |
++------------------------------+
+
+4.1) SELECT title FROM books WHERE book_id=1 OR book_id=2 OR book_id=3 OR book_id=11;
++-----------------------------------------------------+
+| title                                               |
++-----------------------------------------------------+
+| The Namesake                                        |
+| Norse Mythology                                     |
+| American Gods                                       |
+| What We Talk About When We Talk About Love: Stories |
++-----------------------------------------------------+
+
+4.2) SELECT SUBSTRING("What We Talk About When We Talk About Love: Stories", 1, 10);
++-------------------------------------------------------------------------+
+| SUBSTRING("What We Talk About When We Talk About Love: Stories", 1, 10) |
++-------------------------------------------------------------------------+
+| What We Ta                                                              |
++-------------------------------------------------------------------------+
+
+4.3) SELECT SUBSTRING(title, 1, 10) FROM books;
++-------------------------+
+| SUBSTRING(title, 1, 10) |
++-------------------------+
+| The Namesa              |
+| Norse Myth              |
+| American G              |
+| Interprete              |
+| A Hologram              |
+| ...                     |
++-------------------------+
+
+*** Combining CONCAT and SUBSTRING ***
+
+SELECT CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title' FROM books;
++---------------+
+| short title   |
++---------------+
+| The Namesa... |
+| Norse Myth... |
+| American G... |
+| Interprete... |
+| A Hologram... |
+| ...           |
++---------------+
