@@ -170,3 +170,92 @@ SELECT CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title' FROM books;
 | A Hologram |
 | ...        |
 +------------+
+
+*** Using REVERSE ***
+
+1) SELECT REVERSE('Hello World');
++------------------------+
+| REVERSE('Hello World') |
++------------------------+
+| dlroW olleH            |
++------------------------+
+
+2) SELECT CONCAT(author_fname, ' - ', REVERSE(author_fname)) FROM books;
++----------------------------------------------------+
+| CONCAT(author_fname, ' - ', REVERSE(author_fname)) |
++----------------------------------------------------+
+| Jhumpa - apmuhJ                                    |
+| Neil - lieN                                        |
+| Neil - lieN                                        |
+| Jhumpa - apmuhJ                                    |
+| Dave - evaD                                        |
+| ...                                                |
++----------------------------------------------------+
+
+*** Working with CHAR_LENGTH ***
+
+1) SELECT CHAR_LENGTH('Hello World');
++----------------------------+
+| CHAR_LENGTH('Hello World') |
++----------------------------+
+|                         11 |
++----------------------------+
+
+2) SELECT author_fname, CHAR_LENGTH(author_fname) AS length FROM books;
++--------------+--------+
+| author_fname | length |
++--------------+--------+
+| Jhumpa       |      6 |
+| Neil         |      4 |
+| Neil         |      4 |
+| Jhumpa       |      6 |
+| Dave         |      4 |
+| ...          |    ... |
++--------------+--------+
+
+3) SELECT 
+	CONCAT_WS(' ', 
+		author_lname, 
+		'is', 
+		CHAR_LENGTH(author_lname), 
+		'characters long') 
+	AS "author's last name description" 
+   FROM books;
++--------------------------------------+
+| author's last name description       |
++--------------------------------------+
+| Lahiri is 6 characters long          |
+| Gaiman is 6 characters long          |
+| Gaiman is 6 characters long          |
+| Lahiri is 6 characters long          |
+| Eggers is 6 characters long          |
+| ...                                  |
++--------------------------------------+
+
+*** Changing Case with UPPER and LOWER ***
+
+1) SELECT UPPER('Hello World');
++----------------------+
+| UPPER('Hello World') |
++----------------------+
+| HELLO WORLD          |
++----------------------+
+
+2) SELECT LOWER('Hello World');
++----------------------+
+| LOWER('Hello World') |
++----------------------+
+| hello world          |
++----------------------+
+
+3) SELECT CONCAT_WS(' ', 'MY FAVOURITE BOOK IS', UPPER(title)) AS 'Favourite book' FROM books;
++--------------------------------------------------------+
+| Favourite book                                         |
++--------------------------------------------------------+
+| MY FAVOURITE BOOK IS THE NAMESAKE                      |
+| MY FAVOURITE BOOK IS NORSE MYTHOLOGY                   |
+| MY FAVOURITE BOOK IS AMERICAN GODS                     |
+| MY FAVOURITE BOOK IS INTERPRETER OF MALADIES           |
+| MY FAVOURITE BOOK IS A HOLOGRAM FOR THE KING: A NOVEL  |
+| ...                                                    |
++--------------------------------------------------------+
