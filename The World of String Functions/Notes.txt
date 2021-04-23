@@ -124,3 +124,49 @@ SELECT CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title' FROM books;
 | A Hologram... |
 | ...           |
 +---------------+
+
+*** Introducing REPLACE ***
+
+1) SELECT REPLACE ('Hello World', 'l', '7');
++-----------------------------------+
+| REPLACE ('Hello World', 'l', '7') |
++-----------------------------------+
+| He77o Wor7d                       |
++-----------------------------------+
+
+2) SELECT REPLACE('cheese bread coffee milk', ' ', ' and ');
++---------------------------------------------------+
+| REPLACE('cheese bread coffee milk', ' ', ' and ') |
++---------------------------------------------------+
+| cheese and bread and coffee and milk              |
++---------------------------------------------------+
+
+3) SELECT REPLACE(title, 'e', '3') FROM books;
++--------------------------------------+
+| REPLACE(title, 'e', '3')             |
++--------------------------------------+
+| Th3 Nam3sak3                         |
+| Nors3 Mythology                      |
+| Am3rican Gods                        |
+| Int3rpr3t3r of Maladi3s              |
+| A Hologram for th3 King: A Nov3l     |
+| ...                                  |
++--------------------------------------+
+
+4) SELECT 
+   		SUBSTRING(
+   			REPLACE(title, 'e', '3')
+			, 1
+			, 10) 
+		AS 'e=3' 
+   FROM books;
++------------+
+| e=3        |
++------------+
+| Th3 Nam3sa |
+| Nors3 Myth |
+| Am3rican G |
+| Int3rpr3t3 |
+| A Hologram |
+| ...        |
++------------+
