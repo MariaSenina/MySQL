@@ -1,0 +1,104 @@
+1. Reverse and uppercase "Why does my cat look at me with such hatred?"
+
+SELECT UPPER(REVERSE("Why does my cat look at me with such hatred?"));
++----------------------------------------------------------------+
+| UPPER(REVERSE("Why does my cat look at me with such hatred?")) |
++----------------------------------------------------------------+
+| ?DERTAH HCUS HTIW EM TA KOOL TAC YM SEOD YHW                   |
++----------------------------------------------------------------+
+
+2. Replace all the spaces in titles with "->" (name it "title"). (from "Books" table)
+
+SELECT REPLACE(title, ' ', '->') AS title FROM books;
++------------------------------------------+
+| title                                    |
++------------------------------------------+
+| The->Namesake                            |
+| Norse->Mythology                         |
+| American->Gods                           |
+| Interpreter->of->Maladies                |
+| A->Hologram->for->the->King:->A->Novel   |
+| <...>                                    |
++------------------------------------------+
+
+3. Print out author's last name (name it "forwards") and author's last name reversed (name it "backwards"). (from "Books" table)
+
+SELECT
+  author_lname AS forwards,
+  REVERSE(author_lname) AS backwards
+FROM books;
++----------------+----------------+
+| forwards       | backwards      |
++----------------+----------------+
+| Lahiri         | irihaL         |
+| Gaiman         | namiaG         |
+| Gaiman         | namiaG         |
+| Lahiri         | irihaL         |
+| Eggers         | sreggE         |
+| <...>          | <...>          |
++----------------+----------------+
+
+4. Full author's name in caps ("full name in caps"). (from "Books" table)
+
+SELECT
+  UPPER(CONCAT(author_fname, ' ', author_lname)) AS 'full name in caps'
+FROM books;
++----------------------+
+| full name in caps    |
++----------------------+
+| JHUMPA LAHIRI        |
+| NEIL GAIMAN          |
+| NEIL GAIMAN          |
+| JHUMPA LAHIRI        |
+| DAVE EGGERS          |
+| <...>                |
++----------------------+
+
+5. Print out: <title> "Was released in" <year> (name it "blurb"). (from "Books" table)
+
+SELECT
+  CONCAT_WS(' ', title, "was released in", released_year) AS blurb
+FROM books;
++--------------------------------------------------------+
+| blurb                                                  |
++--------------------------------------------------------+
+| The Namesake was released in 2003                      |
+| Norse Mythology was released in 2016                   |
+| American Gods was released in 2001                     |
+| Interpreter of Maladies was released in 1996           |
+| A Hologram for the King: A Novel was released in 2012  |
+| <...>                                                  |
++--------------------------------------------------------+
+
+6. Print book titles and the length of each titie ("character count"). (from "Books" table)
+
+SELECT title, CHAR_LENGTH(title) AS 'character count' FROM books;
++-------------------------------------+-----------------+
+| title                               | character count |
++-------------------------------------+-----------------+
+| The Namesake                        |              12 |
+| Norse Mythology                     |              15 |
+| American Gods                       |              13 |
+| Interpreter of Maladies             |              23 |
+| A Hologram for the King: A Novel    |              32 |
+| <...>                               |           <...> |
++-------------------------------------+-----------------+
+
+7. Print a "short titile"(first 10 characters) with "...", "author" (last name, first name format), "quantity" (<number> "in stock"). (from "Books" table)
+
+SELECT
+  CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title',
+  CONCAT(author_lname, ', ', author_fname) AS author,
+  CONCAT(stock_quantity, ' in strock') AS quantity
+FROM books
+;
++---------------+-----------------------+---------------+
+| short title   | author                | quantity      |
++---------------+-----------------------+---------------+
+| The Namesa... | Lahiri, Jhumpa        | 32 in strock  |
+| Norse Myth... | Gaiman, Neil          | 43 in strock  |
+| American G... | Gaiman, Neil          | 12 in strock  |
+| Interprete... | Lahiri, Jhumpa        | 97 in strock  |
+| A Hologram... | Eggers, Dave          | 154 in strock |
+| <...>         | <...>                 | <...>         |
++---------------+-----------------------+---------------+
