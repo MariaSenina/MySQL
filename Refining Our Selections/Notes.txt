@@ -1,0 +1,139 @@
+*** Using DISTINCT ***
+
+1) SELECT DISTINCT author_lname FROM books;
++----------------+
+| author_lname   |
++----------------+
+| Lahiri         |
+| Gaiman         |
+| Eggers         |
+| Chabon         |
+| Smith          |
+| Carver         |
+| DeLillo        |
+| Steinbeck      |
+| Foster Wallace |
+| Harris         |
+| Saunders       |
++----------------+
+
+2) SELECT DISTINCT author_fname, author_lname FROM books;
++--------------+----------------+
+| author_fname | author_lname   |
++--------------+----------------+
+| Jhumpa       | Lahiri         |
+| Neil         | Gaiman         |
+| Dave         | Eggers         |
+| Michael      | Chabon         |
+| Patti        | Smith          |
+| Raymond      | Carver         |
+| Don          | DeLillo        |
+| John         | Steinbeck      |
+| David        | Foster Wallace |
+| Dan          | Harris         |
+| Freida       | Harris         |
+| George       | Saunders       |
++--------------+----------------+
+
+*** Sorting Data with ORDER BY ***
+
+1) SELECT author_lname FROM books ORDER BY author_lname;
++----------------+
+| author_lname   |
++----------------+
+| Carver         |
+| Carver         |
+| Chabon         |
+| DeLillo        |
+| Eggers         |
+| Eggers         |
+| Eggers         |
+| Foster Wallace |
+| <...>          |
++----------------+
+
+2) SELECT author_lname FROM books ORDER BY author_lname DESC;
++----------------+
+| author_lname   |
++----------------+
+| Steinbeck      |
+| Smith          |
+| Saunders       |
+| Lahiri         |
+| Lahiri         |
+| Harris         |
+| Harris         |
+| Gaiman         |
+| Gaiman         |
+| Gaiman         |
+| Foster Wallace |
+| <...>          |
++----------------+
+
+3) SELECT released_year FROM books ORDER BY released_year;
++---------------+
+| released_year |
++---------------+
+|          1945 |
+|          1981 |
+|          1985 |
+|          1989 |
+|          1996 |
+|          2000 |
+|          2001 |
+|          2001 |
+|          2001 |
+|         <...> |
++---------------+
+
+4) SELECT title, pages FROM books ORDER BY released_year;
++-----------------------------------------------------+-------+
+| title                                               | pages |
++-----------------------------------------------------+-------+
+| Cannery Row                                         |   181 |
+| What We Talk About When We Talk About Love: Stories |   176 |
+| White Noise                                         |   320 |
+| Where I'm Calling From: Selected Stories            |   526 |
+| Interpreter of Maladies                             |   198 |
+| The Amazing Adventures of Kavalier & Clay           |   634 |
+| fake_book                                           |   428 |
+| <...>                                               | <...> |
++-----------------------------------------------------+-------+
+
+5) SELECT title, author_fname, author_lname FROM books ORDER BY 2;
++-------------------------------------------+--------------+----------------+
+| title                                     | author_fname | author_lname   |
++-------------------------------------------+--------------+----------------+
+| 10% Happier                               | Dan          | Harris         |
+| A Hologram for the King: A Novel          | Dave         | Eggers         |
+| The Circle                                | Dave         | Eggers         |
+| A Heartbreaking Work of Staggering Genius | Dave         | Eggers         |
+| Consider the Lobster                      | David        | Foster Wallace |
+| Oblivion: Stories                         | David        | Foster Wallace |
+| White Noise                               | Don          | DeLillo        |
+| fake_book                                 | Freida       | Harris         |
+| Lincoln In The Bardo                      | George       | Saunders       |
+| Interpreter of Maladies                   | Jhumpa       | Lahiri         |
+| <...>                                     | <...>        | <...>          |
++-------------------------------------------+--------------+----------------+
+
+6) SELECT author_fname, author_lname FROM books ORDER BY author_lname, author_fname;
++--------------+----------------+
+| author_fname | author_lname   |
++--------------+----------------+
+| Raymond      | Carver         |
+| Raymond      | Carver         |
+| Michael      | Chabon         |
+| Don          | DeLillo        |
+| Dave         | Eggers         |
+| Dave         | Eggers         |
+| Dave         | Eggers         |
+| David        | Foster Wallace |
+| David        | Foster Wallace |
+| Neil         | Gaiman         |
+| Neil         | Gaiman         |
+| Neil         | Gaiman         |
+| Dan          | Harris         |
+| Freida       | Harris         |
+| <...>        | <...>          |
++--------------+----------------+
