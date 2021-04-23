@@ -70,7 +70,7 @@ FROM books;
 | <...>                                                  |
 +--------------------------------------------------------+
 
-6. Print book titles and the length of each titie ("character count"). (from "Books" table)
+6. Print book titles and the length of each title ("character count"). (from "Books" table)
 
 SELECT title, CHAR_LENGTH(title) AS 'character count' FROM books;
 +-------------------------------------+-----------------+
@@ -84,7 +84,7 @@ SELECT title, CHAR_LENGTH(title) AS 'character count' FROM books;
 | <...>                               |           <...> |
 +-------------------------------------+-----------------+
 
-7. Print a "short titile"(first 10 characters) with "...", "author" (last name, first name format), "quantity" (<number> "in stock"). (from "Books" table)
+7. Print a "short title"(first 10 characters) with "...", "author" (last name, first name format), "quantity" (<number> "in stock"). (from "Books" table)
 
 SELECT
   CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title',
