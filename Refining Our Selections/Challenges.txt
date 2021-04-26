@@ -1,0 +1,110 @@
+1. Select all story collections
+
+SELECT title FROM books WHERE title LIKE '%stories%';
++-----------------------------------------------------+
+| title                                               |
++-----------------------------------------------------+
+| What We Talk About When We Talk About Love: Stories |
+| Where I'm Calling From: Selected Stories            |
+| Oblivion: Stories                                   |
++-----------------------------------------------------+
+
+2. Find the longest book
+
+SELECT title, pages FROM books ORDER BY pages DESC LIMIT 0, 1;
++-------------------------------------------+-------+
+| title                                     | pages |
++-------------------------------------------+-------+
+| The Amazing Adventures of Kavalier & Clay |   634 |
++-------------------------------------------+-------+
+
+3. Print a summary, containing the title and the year of 3 most recent books (seperated by dash)
+
+SELECT 
+	CONCAT(title, ' - ', released_year) 
+	AS summary 
+FROM books 
+	ORDER BY released_year DESC 
+LIMIT 3;
++-----------------------------+
+| summary                     |
++-----------------------------+
+| Lincoln In The Bardo - 2017 |
+| Norse Mythology - 2016      |
+| 10% Happier - 2014          |
++-----------------------------+
+
+4. Find all books where an author has two last names
+
+SELECT title, author_lname FROM books WHERE author_lname LIKE '% %';
++----------------------+----------------+
+| title                | author_lname   |
++----------------------+----------------+
+| Oblivion: Stories    | Foster Wallace |
+| Consider the Lobster | Foster Wallace |
++----------------------+----------------+
+
+5. Find 3 books with the lowest stock (title, released year, quantity)
+
+SELECT title, released_year, stock_quantity FROM books ORDER BY 3 LIMIT 3;
++-----------------------------------------------------+---------------+----------------+
+| title                                               | released_year | stock_quantity |
++-----------------------------------------------------+---------------+----------------+
+| Where I'm Calling From: Selected Stories            |          1989 |             12 |
+| American Gods                                       |          2001 |             12 |
+| What We Talk About When We Talk About Love: Stories |          1981 |             23 |
++-----------------------------------------------------+---------------+----------------+
+
+6. Print title and author's last name, sorted by author and title
+
+SELECT title, author_lname FROM books ORDER BY author_lname, title;
++-----------------------------------------------------+----------------+
+| title                                               | author_lname   |
++-----------------------------------------------------+----------------+
+| What We Talk About When We Talk About Love: Stories | Carver         |
+| Where I'm Calling From: Selected Stories            | Carver         |
+| The Amazing Adventures of Kavalier & Clay           | Chabon         |
+| White Noise                                         | DeLillo        |
+| A Heartbreaking Work of Staggering Genius           | Eggers         |
+| A Hologram for the King: A Novel                    | Eggers         |
+| The Circle                                          | Eggers         |
+| Consider the Lobster                                | Foster Wallace |
+| Oblivion: Stories                                   | Foster Wallace |
+| American Gods                                       | Gaiman         |
+| Coraline                                            | Gaiman         |
+| <...>                                               | <...>          |
++-----------------------------------------------------+----------------+
+
+7. 'MY FAVOURITE AUTHOR IS' <author's full name in all caps> '!'. Sorted alphabetically by last name. Call it "yell"
+
+SELECT
+  UPPER
+  (
+   CONCAT_WS(' ', 
+             'my favourite author is', 
+             CONCAT(author_fname, ' ', author_lname),
+             '!')
+  )
+  AS yell
+FROM books
+ORDER BY author_lname, author_fname
+;
++-----------------------------------------------+
+| yell                                          |
++-----------------------------------------------+
+| MY FAVOURITE AUTHOR IS RAYMOND CARVER !       |
+| MY FAVOURITE AUTHOR IS RAYMOND CARVER !       |
+| MY FAVOURITE AUTHOR IS MICHAEL CHABON !       |
+| MY FAVOURITE AUTHOR IS DON DELILLO !          |
+| MY FAVOURITE AUTHOR IS DAVE EGGERS !          |
+| MY FAVOURITE AUTHOR IS DAVE EGGERS !          |
+| MY FAVOURITE AUTHOR IS DAVE EGGERS !          |
+| MY FAVOURITE AUTHOR IS DAVID FOSTER WALLACE ! |
+| MY FAVOURITE AUTHOR IS DAVID FOSTER WALLACE ! |
+| MY FAVOURITE AUTHOR IS NEIL GAIMAN !          |
+| MY FAVOURITE AUTHOR IS NEIL GAIMAN !          |
+| MY FAVOURITE AUTHOR IS NEIL GAIMAN !          |
+| MY FAVOURITE AUTHOR IS DAN HARRIS !           |
+| MY FAVOURITE AUTHOR IS FREIDA HARRIS !        |
+| <...>                                         |
++-----------------------------------------------+
