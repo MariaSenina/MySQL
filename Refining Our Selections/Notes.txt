@@ -137,3 +137,84 @@
 | Freida       | Harris         |
 | <...>        | <...>          |
 +--------------+----------------+
+
+*** Using LIMIT ***
+
+1) SELECT title FROM books LIMIT 3;
++-----------------+
+| title           |
++-----------------+
+| The Namesake    |
+| Norse Mythology |
+| American Gods   |
++-----------------+
+
+2) SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 3;
++----------------------+---------------+
+| title                | released_year |
++----------------------+---------------+
+| Lincoln In The Bardo |          2017 |
+| Norse Mythology      |          2016 |
+| 10% Happier          |          2014 |
++----------------------+---------------+
+
+3) SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 2, 3;
++----------------------------------+---------------+
+| title                            | released_year |
++----------------------------------+---------------+
+| 10% Happier                      |          2014 |
+| The Circle                       |          2013 |
+| A Hologram for the King: A Novel |          2012 |
++----------------------------------+---------------+
+
+*** Better searches with LIKE ***
+
+1) SELECT title, author_fname FROM books WHERE author_fname LIKE '%da%';
++-------------------------------------------+--------------+
+| title                                     | author_fname |
++-------------------------------------------+--------------+
+| A Hologram for the King: A Novel          | Dave         |
+| The Circle                                | Dave         |
+| A Heartbreaking Work of Staggering Genius | Dave         |
+| Oblivion: Stories                         | David        |
+| Consider the Lobster                      | David        |
+| 10% Happier                               | Dan          |
+| fake_book                                 | Freida       |
++-------------------------------------------+--------------+
+
+2) SELECT title, author_fname FROM books WHERE author_fname LIKE 'da%';
++-------------------------------------------+--------------+
+| title                                     | author_fname |
++-------------------------------------------+--------------+
+| A Hologram for the King: A Novel          | Dave         |
+| The Circle                                | Dave         |
+| A Heartbreaking Work of Staggering Genius | Dave         |
+| Oblivion: Stories                         | David        |
+| Consider the Lobster                      | David        |
+| 10% Happier                               | Dan          |
++-------------------------------------------+--------------+
+
+3) SELECT title, stock_quantity FROM books WHERE stock_quantity LIKE '___';
++-------------------------------------------+----------------+
+| title                                     | stock_quantity |
++-------------------------------------------+----------------+
+| A Hologram for the King: A Novel          |            154 |
+| A Heartbreaking Work of Staggering Genius |            104 |
+| Coraline                                  |            100 |
+| Oblivion: Stories                         |            172 |
+| fake_book                                 |            287 |
++-------------------------------------------+----------------+
+
+4) SELECT title FROM books WHERE title LIKE '%\%%';
++-------------+
+| title       |
++-------------+
+| 10% Happier |
++-------------+
+
+4.1) SELECT title FROM books WHERE title LIKE '%\_%';
++-----------+
+| title     |
++-----------+
+| fake_book |
++-----------+
