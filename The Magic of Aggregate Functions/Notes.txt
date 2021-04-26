@@ -1,0 +1,129 @@
+*** The Count Function ***
+
+1) SELECT COUNT(*) FROM books;
++----------+
+| COUNT(*) |
++----------+
+|       19 |
++----------+
+
+2) SELECT COUNT(DISTINCT author_fname) FROM books;
+SELECT COUNT(DISTINCT author_fname) FROM books;
++------------------------------+
+| COUNT(DISTINCT author_fname) |
++------------------------------+
+|                           12 |
++------------------------------+
+
+3) SELECT COUNT(*) FROM books WHERE title LIKE '%the%';
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+
+*** Group By ***
+
+1) SELECT author_fname, author_lname, COUNT(*) FROM books GROUP BY author_lname, author_fname;
++--------------+----------------+----------+
+| author_fname | author_lname   | COUNT(*) |
++--------------+----------------+----------+
+| Raymond      | Carver         |        2 |
+| Michael      | Chabon         |        1 |
+| Don          | DeLillo        |        1 |
+| Dave         | Eggers         |        3 |
+| David        | Foster Wallace |        2 |
+| Neil         | Gaiman         |        3 |
+| Dan          | Harris         |        1 |
+| Freida       | Harris         |        1 |
+| Jhumpa       | Lahiri         |        2 |
+| George       | Saunders       |        1 |
+| Patti        | Smith          |        1 |
+| John         | Steinbeck      |        1 |
++--------------+----------------+----------+
+
+2) SELECT released_year, COUNT(*) FROM books GROUP BY released_year;
++---------------+----------+
+| released_year | COUNT(*) |
++---------------+----------+
+|          1945 |        1 |
+|          1981 |        1 |
+|          1985 |        1 |
+|          1989 |        1 |
+|          1996 |        1 |
+|          2000 |        1 |
+|          2001 |        3 |
+|          2003 |        2 |
+|          2004 |        1 |
+|          2005 |        1 |
+|         <...> |    <...> |
++---------------+----------+
+
+3) SELECT 
+		CONCAT_WS(' ', 'In', released_year, COUNT(*), 'book(s) released') 
+		AS 'year summary' 
+   FROM books GROUP BY released_year;
++----------------------------+
+| year summary               |
++----------------------------+
+| In 1945 1 book(s) released |
+| In 1981 1 book(s) released |
+| In 1985 1 book(s) released |
+| In 1989 1 book(s) released |
+| In 1996 1 book(s) released |
+| In 2000 1 book(s) released |
+| In 2001 3 book(s) released |
+| In 2003 2 book(s) released |
+| In 2004 1 book(s) released |
+| <...>                      |
++----------------------------+
+
+*** Min and Max basics ***
+
+1) SELECT MIN(released_year) FROM books;
++--------------------+
+| MIN(released_year) |
++--------------------+
+|               1945 |
++--------------------+
+
+2) SELECT MAX(pages) FROM books;
++------------+
+| MAX(pages) |
++------------+
+|        634 |
++------------+
+
+*** Intro to Subqueries ***
+
+SELECT MAX(pages), title FROM books WHERE pages=(SELECT MAX(pages) FROM books);
++------------+-------------------------------------------+
+| MAX(pages) | title                                     |
++------------+-------------------------------------------+
+|        634 | The Amazing Adventures of Kavalier & Clay |
++------------+-------------------------------------------+
+
+*** Min and Max with GROUP BY ***
+
+SELECT 
+	CONCAT(author_lname, ', ', author_fname) AS author, 
+	Min(released_year) AS 'first published' 
+FROM books 
+GROUP BY author_lname, author_fname 
+ORDER BY author_lname, author_fname;
++-----------------------+-----------------+
+| author                | first published |
++-----------------------+-----------------+
+| Carver, Raymond       |            1981 |
+| Chabon, Michael       |            2000 |
+| DeLillo, Don          |            1985 |
+| Eggers, Dave          |            2001 |
+| Foster Wallace, David |            2004 |
+| Gaiman, Neil          |            2001 |
+| Harris, Dan           |            2014 |
+| Harris, Freida        |            2001 |
+| Lahiri, Jhumpa        |            1996 |
+| Saunders, George      |            2017 |
+| Smith, Patti          |            2010 |
+| Steinbeck, John       |            1945 |
++-----------------------+-----------------+
