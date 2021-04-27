@@ -127,3 +127,56 @@ ORDER BY author_lname, author_fname;
 | Smith, Patti          |            2010 |
 | Steinbeck, John       |            1945 |
 +-----------------------+-----------------+
+
+*** The Sum Function ***
+
+1) SELECT SUM(pages) FROM books;
++------------+
+| SUM(pages) |
++------------+
+|       6623 |
++------------+
+
+2) SELECT CONCAT(author_lname, ', ', author_fname) AS author, SUM(pages) AS 'total pages written' FROM books GROUP BY author_lname, author_fname ORDER BY SUM(pages) DESC;
++-----------------------+---------------------+
+| author                | total pages written |
++-----------------------+---------------------+
+| Eggers, Dave          |                1293 |
+| Gaiman, Neil          |                 977 |
+| Carver, Raymond       |                 702 |
+| Foster Wallace, David |                 672 |
+| Chabon, Michael       |                 634 |
+| Lahiri, Jhumpa        |                 489 |
+| Harris, Freida        |                 428 |
+| Saunders, George      |                 367 |
+| DeLillo, Don          |                 320 |
+| Smith, Patti          |                 304 |
+| Harris, Dan           |                 256 |
+| Steinbeck, John       |                 181 |
++-----------------------+---------------------+
+
+*** The Average Function ***
+
+1) SELECT AVG(pages) FROM books;
++------------+
+| AVG(pages) |
++------------+
+|   348.5789 |
++------------+
+
+2) SELECT released_year AS year, AVG(stock_quantity) AS 'in stock' FROM books GROUP BY released_year ORDER BY released_year DESC;
++------+-----------+
+| year | in stock  |
++------+-----------+
+| 2017 | 1000.0000 |
+| 2016 |   43.0000 |
+| 2014 |   29.0000 |
+| 2013 |   26.0000 |
+| 2012 |  154.0000 |
+| 2010 |   55.0000 |
+| 2005 |   92.0000 |
+| 2004 |  172.0000 |
+| 2003 |   66.0000 |
+| 2001 |  134.3333 |
+| <...>|     <...> |
++------+-----------+
