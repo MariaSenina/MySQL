@@ -1,0 +1,117 @@
+1) Print the number of books in the database
+
+SELECT 
+	COUNT(title) AS '# of different books' 
+FROM books;
++----------------------+
+| # of different books |
++----------------------+
+|                   19 |
++----------------------+
+
+2) Print out how many books were released in each year
+
+SELECT released_year AS year, COUNT(title) AS '# books' FROM books GROUP BY released_year ORDER BY year;
++------+---------+
+| year | # books |
++------+---------+
+| 1945 |       1 |
+| 1981 |       1 |
+| 1985 |       1 |
+| 1989 |       1 |
+| 1996 |       1 |
+| 2000 |       1 |
+| 2001 |       3 |
+| 2003 |       2 |
+| 2004 |       1 |
+| <...>|   <...> |
++------+---------+
+
+3) Print out the total number of books in store
+
+SELECT SUM(stock_quantity) AS 'total stock' FROM books;
++-------------+
+| total stock |
++-------------+
+|        2450 |
++-------------+
+
+4) Find the average released_year for each author
+
+SELECT 
+	CONCAT(author_fname, ' ', author_lname) AS author, 
+	AVG(released_year) AS 'avg relase year' 
+FROM books 
+	GROUP BY author_lname, author_fname 
+	ORDER BY author_lname, author_fname;
++----------------------+-----------------+
+| author               | avg relase year |
++----------------------+-----------------+
+| Raymond Carver       |       1985.0000 |
+| Michael Chabon       |       2000.0000 |
+| Don DeLillo          |       1985.0000 |
+| Dave Eggers          |       2008.6667 |
+| David Foster Wallace |       2004.5000 |
+| Neil Gaiman          |       2006.6667 |
+| Dan Harris           |       2014.0000 |
+| Freida Harris        |       2001.0000 |
+| Jhumpa Lahiri        |       1999.5000 |
+| George Saunders      |       2017.0000 |
+| Patti Smith          |       2010.0000 |
+| John Steinbeck       |       1945.0000 |
++----------------------+-----------------+
+
+5) Find the full name of the author, who wrote the longest book
+
+5.1) SELECT 
+  		CONCAT(author_fname, ' ', author_lname) AS author,
+  		MAX(pages) AS pages
+	 FROM books 
+	 GROUP BY author_lname 
+	 ORDER BY pages DESC LIMIT 1;
++----------------+-------+
+| author         | pages |
++----------------+-------+
+| Michael Chabon |   634 |
++----------------+-------+
+
+5.2) SELECT
+  		CONCAT(author_fname, ' ', author_lname) AS author,
+  		MAX(pages) AS pages
+	 FROM books
+	 WHERE pages=(
+         		  SELECT MAX(pages) 
+         		  FROM books
+        		 )
+	 GROUP BY author_lname, author_fname;
++----------------+-------+
+| author         | pages |
++----------------+-------+
+| Michael Chabon |   634 |
++----------------+-------+
+
+6) Print out year, # books, and avg pages for every year
+
+SELECT
+    released_year AS year,
+    COUNT(title) AS '# books',
+    AVG(pages) AS 'avg pages'
+FROM books
+GROUP BY author_lname, author_fname
+ORDER BY released_year DESC;
++------+---------+-----------+
+| year | # books | avg pages |
++------+---------+-----------+
+| 2017 |       1 |  367.0000 |
+| 2016 |       3 |  325.6667 |
+| 2014 |       1 |  256.0000 |
+| 2012 |       3 |  431.0000 |
+| 2010 |       1 |  304.0000 |
+| 2004 |       2 |  336.0000 |
+| 2003 |       2 |  244.5000 |
+| 2001 |       1 |  428.0000 |
+| 2000 |       1 |  634.0000 |
+| 1985 |       1 |  320.0000 |
+| 1981 |       2 |  351.0000 |
+| 1945 |       1 |  181.0000 |
++------+---------+-----------+
