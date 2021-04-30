@@ -1,0 +1,51 @@
+*** CHAR vs VARCHAR ***
+
+1) CREATE TABLE dogs (name CHAR(5), breed VARCHAR(10));
+
+2) INSERT INTO dogs (name, breed) VALUES ('Bob', 'Beagle'),
+										 ('Robby', 'Corgi'),
+										 ('Princess Jane', 'Retriever');
+3) SELECT * FROM dogs;
++-------+-----------+
+| name  | breed     |
++-------+-----------+
+| Bob   | Beagle    |
+| Robby | Corgi     |
+| Princ | Retriever |
++-------+-----------+
+
+*** DECIMAL ***
+
+1) CREATE TABLE items (price DECIMAL(5, 2));
+
+2) INSERT INTO items (price) VALUES (7),
+									(7987654),
+									(34.88),
+									(298.9999),
+									(1.9999);
+3) SELECT * FROM items;
++--------+
+| price  |
++--------+
+|   7.00 |
+| 999.99 |
+|  34.88 |
+| 299.00 |
+|   2.00 |
++--------+
+
+*** FLOAT and DOUBLE ***
+
+1) CREATE TABLE thingies (price FLOAT);
+
+2) INSERT INTO thingies (price) VALUES (88.45),
+									   (8877.45),
+									   (8877665544.45);
+3) SELECT * FROM thingies;
++------------+
+| price      |
++------------+
+|      88.45 |
+|    8877.45 |
+| 8877670000 |
++------------+
