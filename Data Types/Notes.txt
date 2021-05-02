@@ -49,3 +49,114 @@
 |    8877.45 |
 | 8877670000 |
 +------------+
+
+*** DATE, TIME, and DATETIME ***
+
+1) CREATE TABLE people (name VARCHAR(100), birthdate DATE, birthtime TIME, birthdt DATETIME);
+
+2) INSERT INTO people (name, birthdate, birthtime, birthdt) VALUES ('Padma', '1983-11-11', '10:07:35', '1983-11-11 10:07:35'),
+																   ('Larry', '1943-12-25', '04:10:42', '1943-12-25 04:10:42');
+3) SELECT * FROM people;
++-------+------------+-----------+---------------------+
+| name  | birthdate  | birthtime | birthdt             |
++-------+------------+-----------+---------------------+
+| Padma | 1983-11-11 | 10:07:35  | 1983-11-11 10:07:35 |
+| Larry | 1943-12-25 | 04:10:42  | 1943-12-25 04:10:42 |
++-------+------------+-----------+---------------------+
+
+*** CURDATE, CURTIME, and NOW ***
+
+1) SELECT CURDATE();
++------------+
+| CURDATE()  |
++------------+
+| 2021-05-02 |
++------------+
+
+1.1) SELECT CURTIME();
++-----------+
+| CURTIME() |
++-----------+
+| 21:26:11  |
++-----------+
+
+1.2) SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2021-05-02 21:26:47 |
++---------------------+
+
+2) INSERT INTO people (name, birthdate, birthtime, birthdt) VALUES ('Microwave', CURDATE(), CURTIME(), NOW());
+
+3) SELECT * FROM people;
++---------+------------+-----------+---------------------+
+| name    | birthdate  | birthtime | birthdt             |
++---------+------------+-----------+---------------------+
+| Padma   | 1983-11-11 | 10:07:35  | 1983-11-11 10:07:35 |
+| Larry   | 1943-12-25 | 04:10:42  | 1943-12-25 04:10:42 |
+| Toaster | 2021-05-02 | 21:29:37  | 2021-05-02 21:29:37 |
++---------+------------+-----------+---------------------+
+
+*** Formatting DATES ***
+
+1) SELECT name, DAY(birthdate) FROM people;
++---------+----------------+
+| name    | DAY(birthdate) |
++---------+----------------+
+| Padma   |             11 |
+| Larry   |             25 |
+| Toaster |              2 |
++---------+----------------+
+
+2) SELECT name, DAYNAME(birthdate) FROM people;
++---------+--------------------+
+| name    | DAYNAME(birthdate) |
++---------+--------------------+
+| Padma   | Friday             |
+| Larry   | Saturday           |
+| Toaster | Sunday             |
++---------+--------------------+
+
+3) SELECT name, DAYOFWEEK(birthdate) FROM people;
++---------+----------------------+
+| name    | DAYOFWEEK(birthdate) |
++---------+----------------------+
+| Padma   |                    6 |
+| Larry   |                    7 |
+| Toaster |                    1 |
++---------+----------------------+
+
+4) SELECT name, DAYOFYEAR(birthdate) FROM people;
++---------+----------------------+
+| name    | DAYOFYEAR(birthdate) |
++---------+----------------------+
+| Padma   |                  315 |
+| Larry   |                  359 |
+| Toaster |                  122 |
++---------+----------------------+
+
+5) SELECT DATE_FORMAT('2009-10-04', '%W %M %Y');
++---------------------------------------+
+| DATE_FORMAT('2009-10-04', '%W %M %Y') |
++---------------------------------------+
+| Sunday October 2009                   |
++---------------------------------------+
+
+6) SELECT name, DATE_FORMAT(birthdt, 'Was born on a %W') FROM people;
++---------+------------------------------------------+
+| name    | DATE_FORMAT(birthdt, 'Was born on a %W') |
++---------+------------------------------------------+
+| Padma   | Was born on a Friday                     |
+| Larry   | Was born on a Saturday                   |
+| Toaster | Was born on a Sunday                     |
++---------+------------------------------------------+
+
+7) SELECT name, DATE_FORMAT(birthdt, 'Was born on a %W at %h:%m') FROM people;
++---------+---------------------------------------------------+
+| name    | DATE_FORMAT(birthdt, 'Was born on a %W at %h:%m') |
++---------+---------------------------------------------------+
+| Padma   | Was born on a Friday at 10:11                     |
+| Larry   | Was born on a Saturday at 04:12                   |
+| Toaster | Was born on a Sunday at 09:05                     |
++---------+---------------------------------------------------+
