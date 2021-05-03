@@ -1,0 +1,118 @@
+1. Create a table for store inventory that includes item name, price, and quantity, where price is always < 1,000,000
+
+1.1) CREATE TABLE inventory (item_name VARCHAR(50), price DECIMAL(8, 2), quantity INT);
+
+1.2) DESC inventory;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| item_name | varchar(50)  | YES  |     | NULL    |       |
+| price     | decimal(8,2) | YES  |     | NULL    |       |
+| quantity  | int(11)      | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+
+1.3) INSERT INTO inventory (item_name, price, quantity) VALUES ('teddy bear', '78.9', 5);
+
+1.4) SELECT * FROM inventory;
++------------+-------+----------+
+| item_name  | price | quantity |
++------------+-------+----------+
+| teddy bear | 78.90 |        5 |
++------------+-------+----------+
+
+2. Print out the current time
+
+SELECT CURTIME();
++-----------+
+| CURTIME() |
++-----------+
+| 18:20:28  |
++-----------+
+
+3. Print out the current date (no time)
+
+SELECT CURDATE();
++------------+
+| CURDATE()  |
++------------+
+| 2021-05-03 |
++------------+
+
+4. Print out the current day of the week (the number)
+
+SELECT DAYOFWEEK(NOW());
++------------------+
+| DAYOFWEEK(NOW()) |
++------------------+
+|                2 |
++------------------+
+
+5. Print out the current day of the week (in letters)
+
+SELECT DAYNAME(NOW());
++----------------+
+| DAYNAME(NOW()) |
++----------------+
+| Monday         |
++----------------+
+
+6. Print out the current day and time (mm/dd/yyyy)
+
+SELECT DATE_FORMAT(NOW(), '%m/%d/%Y');
++--------------------------------+
+| DATE_FORMAT(NOW(), '%m/%d/%Y') |
++--------------------------------+
+| 05/03/2021                     |
++--------------------------------+
+
+7. Print out the current date and time (sample format: January 2nd at 3:15)
+
+SELECT DATE_FORMAT(NOW(), '%M %D at %H:%i');
++--------------------------------------+
+| DATE_FORMAT(NOW(), '%M %D at %H:%i') |
++--------------------------------------+
+| May 3rd at 19:11                     |
++--------------------------------------+
+
+8. Create a 'tweets' table that stores tweet content(140), username(20), time it was created
+
+8.1) CREATE TABLE tweets (tweet_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                          content  VARCHAR(140),
+                          username VARCHAR(20) NOT NULL,
+                          edited_at TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP
+                          );
+8.2) DESC tweets;
++-----------+--------------+------+-----+-------------------+-----------------------------+
+| Field     | Type         | Null | Key | Default           | Extra                       |
++-----------+--------------+------+-----+-------------------+-----------------------------+
+| tweet_id  | int(11)      | NO   | PRI | NULL              | auto_increment              |
+| content   | varchar(140) | YES  |     | NULL              |                             |
+| username  | varchar(20)  | NO   |     | NULL              |                             |
+| edited_at | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++-----------+--------------+------+-----+-------------------+-----------------------------+
+
+8.3) INSERT INTO tweets (content, username) VALUES ("It's a beautiful day for a hike", 'naturegirl341');
+     INSERT INTO tweets (content, username) VALUES ("A new Stephen King book is coming out today!", 'horrorismylife');
+	 INSERT INTO tweets (content, username) VALUES ("Stay tund for my ultimate ranking of Quentin Tarantino movies. Coming this week.", 'moviecritic1000');
+	 
+8.4) SELECT * FROM tweets;
++----------+----------------------------------------------------------------------------------+-----------------+---------------------+
+| tweet_id | content                                                                          | username        | edited_at           |
++----------+----------------------------------------------------------------------------------+-----------------+---------------------+
+|        1 | It's a beautiful day for a hike                                                  | naturegirl341   | 2021-05-03 19:26:33 |
+|        2 | A new Stephen King book is coming out today!                                     | horrorismylife  | 2021-05-03 19:30:27 |
+|        3 | Stay tund for my ultimate ranking of Quentin Tarantino movies. Coming this week. | moviecritic1000 | 2021-05-03 19:32:44 |
++----------+----------------------------------------------------------------------------------+-----------------+---------------------+
+
+8.5) UPDATE tweets SET content="A new Stephen King book is coming out today! OMG! Can't wait!" WHERE content="A new Stephen King book is coming out today!";
+     UPDATE tweets SET content="It's the perfect day for a hike" WHERE content="It's a beautiful day for a hike";
+	 UPDATE tweets SET content="Stay tuned for my ultimate ranking of Quentin Tarantino movies. Coming this week." WHERE content="Stay tund for my ultimate ranking of Quentin Tarantino movies. Coming this week.";
+
+8.6)SELECT * FROM tweets ORDER BY edited_at;
++----------+-----------------------------------------------------------------------------------+-----------------+---------------------+
+| tweet_id | content                                                                           | username        | edited_at           |
++----------+-----------------------------------------------------------------------------------+-----------------+---------------------+
+|        2 | A new Stephen King book is coming out today! OMG! Can't wait!                     | horrorismylife  | 2021-05-03 19:35:50 |
+|        1 | It's the perfect day for a hike                                                   | naturegirl341   | 2021-05-03 19:37:26 |
+|        3 | Stay tuned for my ultimate ranking of Quentin Tarantino movies. Coming this week. | moviecritic1000 | 2021-05-03 19:38:14 |
++----------+-----------------------------------------------------------------------------------+-----------------+---------------------+
