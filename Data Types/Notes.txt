@@ -160,3 +160,107 @@
 | Larry   | Was born on a Saturday at 04:12                   |
 | Toaster | Was born on a Sunday at 09:05                     |
 +---------+---------------------------------------------------+
+
+*** DATE Math ***
+
+1) SELECT name, birthdate, DATEDIFF(NOW(), birthdate) FROM people;
++---------+------------+----------------------------+
+| name    | birthdate  | DATEDIFF(NOW(), birthdate) |
++---------+------------+----------------------------+
+| Padma   | 1983-11-11 |                      13688 |
+| Larry   | 1943-12-25 |                      28254 |
+| Toaster | 2021-05-02 |                          1 |
++---------+------------+----------------------------+
+
+2) SELECT name, birthdt, DATE_ADD(birthdt, INTERVAL 1 MONTH) FROM people;
++---------+---------------------+-------------------------------------+
+| name    | birthdt             | DATE_ADD(birthdt, INTERVAL 1 MONTH) |
++---------+---------------------+-------------------------------------+
+| Padma   | 1983-11-11 10:07:35 | 1983-12-11 10:07:35                 |
+| Larry   | 1943-12-25 04:10:42 | 1944-01-25 04:10:42                 |
+| Toaster | 2021-05-02 21:29:37 | 2021-06-02 21:29:37                 |
++---------+---------------------+-------------------------------------+
+
+2.1) SELECT name, birthdt, birthdt + INTERVAL 1 MONTH FROM people;
++---------+---------------------+----------------------------+
+| name    | birthdt             | birthdt + INTERVAL 1 MONTH |
++---------+---------------------+----------------------------+
+| Padma   | 1983-11-11 10:07:35 | 1983-12-11 10:07:35        |
+| Larry   | 1943-12-25 04:10:42 | 1944-01-25 04:10:42        |
+| Toaster | 2021-05-02 21:29:37 | 2021-06-02 21:29:37        |
++---------+---------------------+----------------------------+
+
+3) SELECT name, birthdt, DATE_SUB(birthdt, INTERVAL 1 MONTH) FROM people;
++---------+---------------------+-------------------------------------+
+| name    | birthdt             | DATE_SUB(birthdt, INTERVAL 1 MONTH) |
++---------+---------------------+-------------------------------------+
+| Padma   | 1983-11-11 10:07:35 | 1983-10-11 10:07:35                 |
+| Larry   | 1943-12-25 04:10:42 | 1943-11-25 04:10:42                 |
+| Toaster | 2021-05-02 21:29:37 | 2021-04-02 21:29:37                 |
++---------+---------------------+-------------------------------------+
+
+3.1) SELECT name, birthdt, birthdt - INTERVAL 1 MONTH FROM people;
++---------+---------------------+----------------------------+
+| name    | birthdt             | birthdt - INTERVAL 1 MONTH |
++---------+---------------------+----------------------------+
+| Padma   | 1983-11-11 10:07:35 | 1983-10-11 10:07:35        |
+| Larry   | 1943-12-25 04:10:42 | 1943-11-25 04:10:42        |
+| Toaster | 2021-05-02 21:29:37 | 2021-04-02 21:29:37        |
++---------+---------------------+----------------------------+
+
+4) SELECT name, birthdt, birthdt + INTERVAL 15 MONTH + INTERVAL 10 HOUR FROM people;
++---------+---------------------+------------------------------------------------+
+| name    | birthdt             | birthdt + INTERVAL 15 MONTH + INTERVAL 10 HOUR |
++---------+---------------------+------------------------------------------------+
+| Padma   | 1983-11-11 10:07:35 | 1985-02-11 20:07:35                            |
+| Larry   | 1943-12-25 04:10:42 | 1945-03-25 14:10:42                            |
+| Toaster | 2021-05-02 21:29:37 | 2022-08-03 07:29:37                            |
++---------+---------------------+------------------------------------------------+
+
+*** Working with TIMESTAMPS ***
+
+1) CREATE TABLE comments (content VARCHAR(100), created_at TIMESTAMP DEFAULT NOW());
+
+1.1) INSERT INTO comments (content) VALUES ('LOL what a funny article');
+
+1.2) INSERT INTO comments (content) VALUES ('I found this offensive');
+
+1.3) SELECT * FROM comments;
++--------------------------+---------------------+
+| content                  | created_at          |
++--------------------------+---------------------+
+| LOL what a funny article | 2021-05-03 17:36:59 |
+| I found this offensive   | 2021-05-03 17:37:17 |
++--------------------------+---------------------+
+
+2) CREATE TABLE comments2 (content VARCHAR(100), changed_at TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP);
+
+2.1) INSERT INTO comments2 (content) VALUES ('I found this offensive');
+
+2.2) INSERT INTO comments2 (content) VALUES ('LOL what a funny article');
+
+2.3) SELECT * FROM comments2;
++--------------------------+---------------------+
+| content                  | changed_at          |
++--------------------------+---------------------+
+| I found this offensive   | 2021-05-03 17:42:50 |
+| LOL what a funny article | 2021-05-03 17:43:28 |
++--------------------------+---------------------+
+
+2.4) UPDATE comments2 SET content='I found this terribly offensive' WHERE content='I found this offensive';
+
+2.5) SELECT * FROM comments2;
++---------------------------------+---------------------+
+| content                         | changed_at          |
++---------------------------------+---------------------+
+| I found this terribly offensive | 2021-05-03 17:50:02 |
+| LOL what a funny article        | 2021-05-03 17:43:28 |
++---------------------------------+---------------------+
+
+2.6) SELECT * FROM comments2 ORDER BY changed_at;
++---------------------------------+---------------------+
+| content                         | changed_at          |
++---------------------------------+---------------------+
+| LOL what a funny article        | 2021-05-03 17:43:28 |
+| I found this terribly offensive | 2021-05-03 17:50:02 |
++---------------------------------+---------------------+
