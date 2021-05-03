@@ -1,0 +1,159 @@
+*** Not Equal ***
+
+1) SELECT title FROM books WHERE released_year=2017;
++----------------------+
+| title                |
++----------------------+
+| Lincoln In The Bardo |
++----------------------+
+
+1) SELECT title FROM books WHERE released_year!=2017;
++-----------------------------------------------------+
+| title                                               |
++-----------------------------------------------------+
+| The Namesake                                        |
+| Norse Mythology                                     |
+| American Gods                                       |
+| Interpreter of Maladies                             |
+| A Hologram for the King: A Novel                    |
+| The Circle                                          |
+| The Amazing Adventures of Kavalier & Clay           |
+| Just Kids                                           |
+| A Heartbreaking Work of Staggering Genius           |
+| Coraline                                            |
+| What We Talk About When We Talk About Love: Stories |
+| Where I'm Calling From: Selected Stories            |
+| White Noise                                         |
+| Cannery Row                                         |
+| Oblivion: Stories                                   |
+| Consider the Lobster                                |
+| 10% Happier                                         |
+| fake_book                                           |
++-----------------------------------------------------+
+
+*** NOT LIKE ***
+
+1) SELECT title FROM books WHERE title LIKE 'W%';
++-----------------------------------------------------+
+| title                                               |
++-----------------------------------------------------+
+| What We Talk About When We Talk About Love: Stories |
+| Where I'm Calling From: Selected Stories            |
+| White Noise                                         |
++-----------------------------------------------------+
+
+2) SELECT title FROM books WHERE title NOT LIKE 'W%';
++-------------------------------------------+
+| title                                     |
++-------------------------------------------+
+| The Namesake                              |
+| Norse Mythology                           |
+| American Gods                             |
+| Interpreter of Maladies                   |
+| A Hologram for the King: A Novel          |
+| The Circle                                |
+| The Amazing Adventures of Kavalier & Clay |
+| Just Kids                                 |
+| A Heartbreaking Work of Staggering Genius |
+| Coraline                                  |
+| Cannery Row                               |
+| Oblivion: Stories                         |
+| Consider the Lobster                      |
+| 10% Happier                               |
+| fake_book                                 |
+| Lincoln In The Bardo                      |
++-------------------------------------------+
+
+*** Greater Than ***
+
+1) SELECT title, released_year FROM books WHERE released_year>2000 ORDER BY released_year;
++-------------------------------------------+---------------+
+| title                                     | released_year |
++-------------------------------------------+---------------+
+| American Gods                             |          2001 |
+| A Heartbreaking Work of Staggering Genius |          2001 |
+| fake_book                                 |          2001 |
+| The Namesake                              |          2003 |
+| Coraline                                  |          2003 |
+| Oblivion: Stories                         |          2004 |
+| Consider the Lobster                      |          2005 |
+| Just Kids                                 |          2010 |
+| A Hologram for the King: A Novel          |          2012 |
+| The Circle                                |          2013 |
+| 10% Happier                               |          2014 |
+| Norse Mythology                           |          2016 |
+| Lincoln In The Bardo                      |          2017 |
++-------------------------------------------+---------------+
+
+2) SELECT title, released_year FROM books WHERE released_year>=2000 ORDER BY released_year;
++-------------------------------------------+---------------+
+| title                                     | released_year |
++-------------------------------------------+---------------+
+| The Amazing Adventures of Kavalier & Clay |          2000 |
+| American Gods                             |          2001 |
+| A Heartbreaking Work of Staggering Genius |          2001 |
+| fake_book                                 |          2001 |
+| The Namesake                              |          2003 |
+| Coraline                                  |          2003 |
+| Oblivion: Stories                         |          2004 |
+| Consider the Lobster                      |          2005 |
+| Just Kids                                 |          2010 |
+| A Hologram for the King: A Novel          |          2012 |
+| The Circle                                |          2013 |
+| 10% Happier                               |          2014 |
+| Norse Mythology                           |          2016 |
+| Lincoln In The Bardo                      |          2017 |
++-------------------------------------------+---------------+
+
+3) SELECT 99>1;
++------+
+| 99>1 |
++------+
+|    1 |
++------+
+
+3.1) SELECT 1>99;
++------+
+| 1>99 |
++------+
+|    0 |
++------+
+
+4.1) SELECT 'A'>'a';
++---------+
+| 'A'>'a' |
++---------+
+|       0 |
++---------+
+
+4.2) SELECT 'A'>='a';
++----------+
+| 'A'>='a' |
++----------+
+|        1 |
++----------+
+
+*** Less Than ***
+
+1) SELECT title, released_year FROM books WHERE released_year<2000 ORDER BY released_year;
++-----------------------------------------------------+---------------+
+| title                                               | released_year |
++-----------------------------------------------------+---------------+
+| Cannery Row                                         |          1945 |
+| What We Talk About When We Talk About Love: Stories |          1981 |
+| White Noise                                         |          1985 |
+| Where I'm Calling From: Selected Stories            |          1989 |
+| Interpreter of Maladies                             |          1996 |
++-----------------------------------------------------+---------------+
+
+2) SELECT title, released_year FROM books WHERE released_year<=2000 ORDER BY released_year;
++-----------------------------------------------------+---------------+
+| title                                               | released_year |
++-----------------------------------------------------+---------------+
+| Cannery Row                                         |          1945 |
+| What We Talk About When We Talk About Love: Stories |          1981 |
+| White Noise                                         |          1985 |
+| Where I'm Calling From: Selected Stories            |          1989 |
+| Interpreter of Maladies                             |          1996 |
+| The Amazing Adventures of Kavalier & Clay           |          2000 |
++-----------------------------------------------------+---------------+
