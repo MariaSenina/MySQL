@@ -1,0 +1,113 @@
+1. Select all books written before 1980 (not including 1980)
+
+SELECT title, released_year FROM books WHERE released_year < 1980 ORDER BY released_year;
++-------------+---------------+
+| title       | released_year |
++-------------+---------------+
+| Cannery Row |          1945 |
++-------------+---------------+
+
+2. Select all books written by Eggers or Chabon
+
+SELECT title, author_lname FROM books WHERE author_lname IN ('Eggers', 'Chabon') ORDER BY author_lname;
++-------------------------------------------+--------------+
+| title                                     | author_lname |
++-------------------------------------------+--------------+
+| The Amazing Adventures of Kavalier & Clay | Chabon       |
+| A Hologram for the King: A Novel          | Eggers       |
+| The Circle                                | Eggers       |
+| A Heartbreaking Work of Staggering Genius | Eggers       |
++-------------------------------------------+--------------+
+
+3. Select all books written by Lahiri, published after 2000
+
+SELECT title, author_lname, released_year FROM books WHERE author_lname='Lahiri' && released_year>2000 ORDER BY released_year;
++--------------+--------------+---------------+
+| title        | author_lname | released_year |
++--------------+--------------+---------------+
+| The Namesake | Lahiri       |          2003 |
++--------------+--------------+---------------+
+
+4. Select all books where the page count is between 100 and 200 pages
+
+SELECT title, pages FROM books WHERE pages BETWEEN 100 AND 200 ORDER BY pages;
++-----------------------------------------------------+-------+
+| title                                               | pages |
++-----------------------------------------------------+-------+
+| What We Talk About When We Talk About Love: Stories |   176 |
+| Cannery Row                                         |   181 |
+| Interpreter of Maladies                             |   198 |
++-----------------------------------------------------+-------+
+
+5. Select all books where author's last name starts with 'C' or 'S'
+
+SELECT title, author_lname FROM books WHERE author_lname LIKE 'C%' || author_lname LIKE 'S%' ORDER BY author_lname;
++-----------------------------------------------------+--------------+
+| title                                               | author_lname |
++-----------------------------------------------------+--------------+
+| What We Talk About When We Talk About Love: Stories | Carver       |
+| Where I'm Calling From: Selected Stories            | Carver       |
+| The Amazing Adventures of Kavalier & Clay           | Chabon       |
+| Lincoln In The Bardo                                | Saunders     |
+| Just Kids                                           | Smith        |
+| Cannery Row                                         | Steinbeck    |
++-----------------------------------------------------+--------------+
+
+6. CASE STATEMENT: If title contains 'stories'   -> Short Stories; Just Kids and A Heartbreaking Work  -> Memoir; Everything Else -> Novel (call the new column 'TYPE')
+
+SELECT title, author_lname,
+  CASE 
+    WHEN title LIKE '%stories%' THEN 'Short Stories'
+    WHEN title IN ('Just Kids', 'A Heartbreaking Work of Staggering Genius') THEN 'Memoir'
+    ELSE 'Novel'
+  END AS TYPE
+FROM books ORDER BY author_lname;
++-----------------------------------------------------+----------------+---------------+
+| title                                               | author_lname   | TYPE          |
++-----------------------------------------------------+----------------+---------------+
+| Where I'm Calling From: Selected Stories            | Carver         | Short Stories |
+| What We Talk About When We Talk About Love: Stories | Carver         | Short Stories |
+| The Amazing Adventures of Kavalier & Clay           | Chabon         | Novel         |
+| White Noise                                         | DeLillo        | Novel         |
+| A Hologram for the King: A Novel                    | Eggers         | Novel         |
+| The Circle                                          | Eggers         | Novel         |
+| A Heartbreaking Work of Staggering Genius           | Eggers         | Memoir        |
+| Consider the Lobster                                | Foster Wallace | Novel         |
+| Oblivion: Stories                                   | Foster Wallace | Short Stories |
+| Norse Mythology                                     | Gaiman         | Novel         |
+| Coraline                                            | Gaiman         | Novel         |
+| American Gods                                       | Gaiman         | Novel         |
+| 10% Happier                                         | Harris         | Novel         |
+| fake_book                                           | Harris         | Novel         |
+| Interpreter of Maladies                             | Lahiri         | Novel         |
+| The Namesake                                        | Lahiri         | Novel         |
+| Lincoln In The Bardo                                | Saunders       | Novel         |
+| Just Kids                                           | Smith          | Memoir        |
+| Cannery Row                                         | Steinbeck      | Novel         |
++-----------------------------------------------------+----------------+---------------+
+
+7. Add a 'COUNT' column, using case statements and grouping by author's last name
+
+SELECT title, author_lname,
+  CASE 
+    WHEN COUNT(title)=1 THEN CONCAT(COUNT(title), ' ', 'book')
+    ELSE CONCAT(COUNT(title), ' ', 'books')
+  END AS COUNT
+FROM books GROUP BY author_lname, author_fname 
+ORDER BY author_lname, author_fname;
++-----------------------------------------------------+----------------+---------+
+| title                                               | author_lname   | COUNT   |
++-----------------------------------------------------+----------------+---------+
+| What We Talk About When We Talk About Love: Stories | Carver         | 2 books |
+| The Amazing Adventures of Kavalier & Clay           | Chabon         | 1 book  |
+| White Noise                                         | DeLillo        | 1 book  |
+| A Hologram for the King: A Novel                    | Eggers         | 3 books |
+| Oblivion: Stories                                   | Foster Wallace | 2 books |
+| Norse Mythology                                     | Gaiman         | 3 books |
+| 10% Happier                                         | Harris         | 1 book  |
+| fake_book                                           | Harris         | 1 book  |
+| The Namesake                                        | Lahiri         | 2 books |
+| Lincoln In The Bardo                                | Saunders       | 1 book  |
+| Just Kids                                           | Smith          | 1 book  |
+| Cannery Row                                         | Steinbeck      | 1 book  |
++-----------------------------------------------------+----------------+---------+
