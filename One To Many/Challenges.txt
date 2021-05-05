@@ -94,7 +94,7 @@ SELECT first_name,
        Ifnull(Avg(grade), 0) AS 'average',
        CASE
          WHEN Avg(grade) >= 75 THEN 'PASSING'
-         ELSE 'FAILING'
+         ELSE 'FAILING'my
        END AS passing_status
 FROM   students
        LEFT JOIN papers
@@ -110,3 +110,5 @@ ORDER  BY average DESC;
 | Raj        |  0.0000 | FAILING        |
 | Lisa       |  0.0000 | FAILING        |
 +------------+---------+----------------+
+
+## NOTE: Another WHEN can be added to check for when grade=NULL and make sure that the status is 'FAILING'. It works without it, because AVG(NULL) returns NULL, which is not >= to 75 (so the ELSE kicks in) ##
