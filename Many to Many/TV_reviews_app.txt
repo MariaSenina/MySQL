@@ -74,6 +74,91 @@ INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
     (10,5,9.9),
     (13,3,8.0),(13,4,7.2),
     (14,2,8.5),(14,3,8.9),(14,4,8.9);
+	
+CHALLENGE 1: Match series with the corresponding reviews
 
+SELECT
+  title,
+  rating
+FROM series
+JOIN reviews
+  ON series.id = reviews.series_id;
 
-5)
++----------------------+--------+
+| title                | rating |
++----------------------+--------+
+| Archer               |    8.0 |
+| Archer               |    7.5 |
+| Archer               |    8.5 |
+| Archer               |    7.7 |
+| Archer               |    8.9 |
+| Arrested Development |    8.1 |
+| Arrested Development |    6.0 |
+| Arrested Development |    8.0 |
+| Arrested Development |    8.4 |
+| Arrested Development |    9.9 |
+| Bob's Burgers        |    7.0 |
+| Bob's Burgers        |    7.5 |
+| Bob's Burgers        |    8.0 |
+| Bob's Burgers        |    7.1 |
+| <...>                |  <...> |
++----------------------+--------+
+
+CHALLENGE 2: Select title, average rating for each series, starting with the series with the lowest average rating
+
+SELECT
+  title,
+  AVG(rating) AS avg_rating
+FROM series
+JOIN reviews
+  ON series.id = reviews.series_id
+GROUP BY series.id
+ORDER BY avg_rating;
+
++----------------------+------------+
+| title                | avg_rating |
++----------------------+------------+
+| General Hospital     |    5.38000 |
+| Bob's Burgers        |    7.52000 |
+| Seinfeld             |    7.60000 |
+| Bojack Horseman      |    7.94000 |
+| Arrested Development |    8.08000 |
+| Curb Your Enthusiasm |    8.12000 |
+| Archer               |    8.12000 |
+| Freaks and Geeks     |    8.60000 |
+| Stranger Things      |    8.76667 |
+| Breaking Bad         |    9.36000 |
+| Fargo                |    9.40000 |
+| Halt and Catch Fire  |    9.90000 |
++----------------------+------------+
+
+CHALLENGE 3: Match reviewers (first and last name) with the corresponding reviews
+
+SELECT
+  first_name,
+  last_name,
+  rating
+FROM reviewers
+JOIN reviews
+  ON reviewers.id = reviews.reviewer_id;
+  
++------------+-----------+--------+
+| first_name | last_name | rating |
++------------+-----------+--------+
+| Thomas     | Stoneman  |    8.0 |
+| Thomas     | Stoneman  |    8.1 |
+| Thomas     | Stoneman  |    7.0 |
+| Thomas     | Stoneman  |    7.5 |
+| Thomas     | Stoneman  |    9.5 |
+| Wyatt      | Skaggs    |    7.5 |
+| Wyatt      | Skaggs    |    7.6 |
+| Wyatt      | Skaggs    |    9.3 |
+| Wyatt      | Skaggs    |    6.5 |
+| Wyatt      | Skaggs    |    8.4 |
+| Wyatt      | Skaggs    |    9.1 |
+| Wyatt      | Skaggs    |    7.8 |
+| Wyatt      | Skaggs    |    5.5 |
+| Wyatt      | Skaggs    |    8.5 |
+| Kimbra     | Masters   |    8.5 |
+| <...>      | <...>     |  <...> |
++------------+-----------+--------+
